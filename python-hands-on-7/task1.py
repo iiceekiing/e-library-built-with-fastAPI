@@ -1,3 +1,15 @@
+from enum import Enum
+from pydantic import BaseModel
+from datetime import date
+from typing import List, Optional, Dict
+from typing import List, Optional
+
+from fastapi import FastAPI, HTTPException, status
+from typing import List, Optional
+
+
+
+
 """
 
 LEARNING OBJECTIVES:
@@ -16,11 +28,6 @@ Note: Containerize your App
 """
 
 """ Model"""
-from enum import Enum
-from pydantic import BaseModel
-from datetime import date
-from typing import List, Optional, Dict
-from typing import List, Optional
 
 class BookCategory(str, Enum):
     """Enum for book categories"""
@@ -72,7 +79,9 @@ class Database:
     def add_book(self, book: BookCreate) -> Book:
         """Add a new book to the database"""
         # TODO: Implement adding a book
-        pass
+        new_book = Book(id=self.generate_id(), **book.dict())
+        self._books.append(new_book)
+        return new_book
 
     def get_all_books(self) -> List[Book]:
         """Return all books"""
@@ -117,9 +126,6 @@ class Database:
 """
 API ENDPOINT
 """
-
-from fastapi import FastAPI, HTTPException, status
-from typing import List, Optional
 
 app = FastAPI(title="Book Library API")
 

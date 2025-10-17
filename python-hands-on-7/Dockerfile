@@ -4,4 +4,4 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 8003
-CMD ["uvicorn", "main:app", "--host", "0.0.000", "--port", "8003"]
+CMD ["uvicorn", "task1:app", "--host", "0.0.000", "--port", "8003"]
