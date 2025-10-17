@@ -64,7 +64,9 @@ class Database:
     def generate_id(self) -> int:
         """Generate next book ID"""
         # TODO: Implement ID generation
-        pass
+        current_id = self._next_id
+        self._next_id += 1
+        return current_id
 
     def add_book(self, book: BookCreate) -> Book:
         """Add a new book to the database"""

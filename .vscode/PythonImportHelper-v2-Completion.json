@@ -1,0 +1,241 @@
+[
+    {
+        "label": "Enum",
+        "importPath": "enum",
+        "description": "enum",
+        "isExtraImport": true,
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BookCategory",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class BookCategory(str, Enum):\n    \"\"\"Enum for book categories\"\"\"\n    FICTION = \"fiction\"\n    NONFICTION = \"nonfiction\"\n    SCIENCE = \"science\"\n    HISTORY = \"history\"\n    BIOGRAPHY = \"biography\"\n    TECHNOLOGY = \"technology\"\n    OTHER = \"other\"\nclass BookCreate(BaseModel):",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "BookCreate",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class BookCreate(BaseModel):\n    title: str\n    author: str\n    category: BookCategory\n    published_date: date\nclass Book(BookCreate):\n    id: int\nclass AuthorSummary(BaseModel):\n    author: str\n    book_count: int",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "Book",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class Book(BookCreate):\n    id: int\nclass AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "AuthorSummary",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "CategorySummary",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"\n    def __init__(self):\n        self._books: List[Book] = []\n        self._current_id = 1",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "Database",
+        "kind": 6,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "class Database:\n    \"\"\"In-memory database template for books\"\"\"\n    def __init__(self):\n        self._books: List[Book] = []\n        self._current_id = 1\n    def generate_id(self) -> int:\n        \"\"\"Generate next book ID\"\"\"\n        # TODO: Implement ID generation\n        current_id = self._next_id\n        self._next_id += 1",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "create_book",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def create_book(book: BookCreate):\n    \"\"\"Add a new book\"\"\"\n    # TODO: Call db.add_book and return the new book\n    pass\n@app.get(\"/books\")\ndef list_books(category: Optional[BookCategory] = None) -> List[Book]:\n    \"\"\"List all books or filter by category\"\"\"\n    # TODO: Return db.get_all_books or db.get_books_by_category\n    pass\n@app.get(\"/books/{book_id}\")",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "list_books",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def list_books(category: Optional[BookCategory] = None) -> List[Book]:\n    \"\"\"List all books or filter by category\"\"\"\n    # TODO: Return db.get_all_books or db.get_books_by_category\n    pass\n@app.get(\"/books/{book_id}\")\ndef get_book(book_id: int):\n    \"\"\"Retrieve a book by ID\"\"\"\n    # TODO: Return db.get_book_by_id or raise 404\n    pass\n@app.put(\"/books/{book_id}\")",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "get_book",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def get_book(book_id: int):\n    \"\"\"Retrieve a book by ID\"\"\"\n    # TODO: Return db.get_book_by_id or raise 404\n    pass\n@app.put(\"/books/{book_id}\")\ndef update_book(book_id: int, updates: BookCreate):\n    \"\"\"Update a book by ID\"\"\"\n    # TODO: Call db.update_book and return updated book\n    pass\n@app.delete(\"/books/{book_id}\", status_code=status.HTTP_204_NO_CONTENT)",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "update_book",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def update_book(book_id: int, updates: BookCreate):\n    \"\"\"Update a book by ID\"\"\"\n    # TODO: Call db.update_book and return updated book\n    pass\n@app.delete(\"/books/{book_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_book(book_id: int):\n    \"\"\"Delete a book by ID\"\"\"\n    # TODO: Call db.delete_book or raise 404\n    pass\n@app.get(\"/summary/authors\")",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "delete_book",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def delete_book(book_id: int):\n    \"\"\"Delete a book by ID\"\"\"\n    # TODO: Call db.delete_book or raise 404\n    pass\n@app.get(\"/summary/authors\")\ndef author_summary():\n    \"\"\"Return summary of books per author\"\"\"\n    # TODO: Call db.get_author_summary\n    pass\n@app.get(\"/summary/categories\")",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "author_summary",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def author_summary():\n    \"\"\"Return summary of books per author\"\"\"\n    # TODO: Call db.get_author_summary\n    pass\n@app.get(\"/summary/categories\")\ndef category_summary():\n    \"\"\"Return summary of books per category\"\"\"\n    # TODO: Call db.get_category_summary\n    pass",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "category_summary",
+        "kind": 2,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "def category_summary():\n    \"\"\"Return summary of books per category\"\"\"\n    # TODO: Call db.get_category_summary\n    pass",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "app = FastAPI(title=\"Book Library API\")\ndb = Database()  # in-memory database instance\n@app.post(\"/books\")\ndef create_book(book: BookCreate):\n    \"\"\"Add a new book\"\"\"\n    # TODO: Call db.add_book and return the new book\n    pass\n@app.get(\"/books\")\ndef list_books(category: Optional[BookCategory] = None) -> List[Book]:\n    \"\"\"List all books or filter by category\"\"\"",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "python-hands-on-7.task1",
+        "description": "python-hands-on-7.task1",
+        "peekOfCode": "db = Database()  # in-memory database instance\n@app.post(\"/books\")\ndef create_book(book: BookCreate):\n    \"\"\"Add a new book\"\"\"\n    # TODO: Call db.add_book and return the new book\n    pass\n@app.get(\"/books\")\ndef list_books(category: Optional[BookCategory] = None) -> List[Book]:\n    \"\"\"List all books or filter by category\"\"\"\n    # TODO: Return db.get_all_books or db.get_books_by_category",
+        "detail": "python-hands-on-7.task1",
+        "documentation": {}
+    }
+]
