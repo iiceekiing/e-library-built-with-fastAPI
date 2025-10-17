@@ -126,7 +126,7 @@
         "kind": 6,
         "importPath": "python-hands-on-7.task1",
         "description": "python-hands-on-7.task1",
-        "peekOfCode": "class Book(BookCreate):\n    id: int\nclass AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional",
+        "peekOfCode": "class Book(BookCreate):\n    id: int\nclass AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nclass Database:",
         "detail": "python-hands-on-7.task1",
         "documentation": {}
     },
@@ -135,7 +135,7 @@
         "kind": 6,
         "importPath": "python-hands-on-7.task1",
         "description": "python-hands-on-7.task1",
-        "peekOfCode": "class AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"",
+        "peekOfCode": "class AuthorSummary(BaseModel):\n    author: str\n    book_count: int\nclass CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"\n    def __init__(self):",
         "detail": "python-hands-on-7.task1",
         "documentation": {}
     },
@@ -144,7 +144,7 @@
         "kind": 6,
         "importPath": "python-hands-on-7.task1",
         "description": "python-hands-on-7.task1",
-        "peekOfCode": "class CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nfrom typing import List, Optional\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"\n    def __init__(self):\n        self._books: List[Book] = []\n        self._current_id = 1",
+        "peekOfCode": "class CategorySummary(BaseModel):\n    category: str\n    book_count: int\n\"\"\" Databasemodel\"\"\"\nclass Database:\n    \"\"\"In-memory database template for books\"\"\"\n    def __init__(self):\n        self._books: List[Book] = []\n        self._current_id = 1\n    def generate_id(self) -> int:",
         "detail": "python-hands-on-7.task1",
         "documentation": {}
     },

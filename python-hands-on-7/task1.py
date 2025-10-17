@@ -20,6 +20,7 @@ from enum import Enum
 from pydantic import BaseModel
 from datetime import date
 from typing import List, Optional, Dict
+from typing import List, Optional
 
 class BookCategory(str, Enum):
     """Enum for book categories"""
@@ -52,7 +53,7 @@ class CategorySummary(BaseModel):
 
 """ Databasemodel"""
 
-from typing import List, Optional
+
 
 class Database:
     """In-memory database template for books"""
@@ -81,7 +82,12 @@ class Database:
     def get_book_by_id(self, book_id: int) -> Optional[Book]:
         """Find a book by ID"""
         # TODO: Implement lookup by ID
-        pass
+        for x in self._books:
+            if x.id == book_id:
+                return x
+        return f"Book with id {book_id} not found"
+    
+    
 
     def update_book(self, book_id: int, updates: dict) -> Optional[Book]:
         """Update book details by ID"""
