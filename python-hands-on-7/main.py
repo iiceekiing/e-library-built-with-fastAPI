@@ -2,16 +2,9 @@ from enum import Enum
 from pydantic import BaseModel
 from datetime import date
 from typing import List, Optional, Dict
-from typing import List, Optional
-
 from fastapi import FastAPI, HTTPException, status
-from typing import List, Optional
-
-
-
 
 """
-
 LEARNING OBJECTIVES:
 - Practice CRUD operations with REST APIs
 - Implement filtering and searching
@@ -21,13 +14,11 @@ LEARNING OBJECTIVES:
 
 PROJECT OVERVIEW:
 Build a REST API to manage a library of books with categories, authors, and reporting features.
-
-INSTRUCTIONS:
-Complete the TODO sections below to build a fully functional Book Library AP
-Note: Containerize your App
 """
 
-""" Model"""
+# -------------------------------
+# MODEL
+# -------------------------------
 
 class BookCategory(str, Enum):
     """Enum for book categories"""
@@ -39,11 +30,13 @@ class BookCategory(str, Enum):
     TECHNOLOGY = "technology"
     OTHER = "other"
 
+
 class BookCreate(BaseModel):
     title: str
     author: str
     category: BookCategory
     published_date: date
+
 
 class Book(BookCreate):
     id: int
@@ -59,134 +52,137 @@ class CategorySummary(BaseModel):
     book_count: int
 
 
-""" Databasemodel"""
+# -------------------------------
+# DATABASE SIMULATION
+# -------------------------------
 
 class Database:
     """In-memory database template for books"""
 
     def __init__(self):
         self._books: List[Book] = []
-        self._current_id = 1
+        self._next_id = 1  # fixed variable name
 
     def generate_id(self) -> int:
         """Generate next book ID"""
-        # TODO: Implement ID generation
         next_book_id = self._next_id
         self._next_id += 1
         return next_book_id
 
     def add_book(self, book: BookCreate) -> Book:
         """Add a new book to the database"""
-        # TODO: Implement adding a book
         new_book = Book(id=self.generate_id(), **book.dict())
         self._books.append(new_book)
         return new_book
 
     def get_all_books(self) -> List[Book]:
         """Return all books"""
-        # TODO: Implement retrieving all books
         return list(self._books)
 
     def get_book_by_id(self, book_id: int) -> Optional[Book]:
         """Find a book by ID"""
-        # TODO: Implement lookup by ID
-        for item_x in self._books:
-            if item_x.id == book_id:
-                return item_x
-        return f"Book with id {book_id} not found"
-    
-    
+        for book in self._books:
+            if book.id == book_id:
+                return book
+        return None
 
     def update_book(self, book_id: int, updates: dict) -> Optional[Book]:
         """Update book details by ID"""
-        # TODO: Implement update
-        for item_x in self._books:
-            if item_x.id == book_id:
-                item_x.title = updates.get("title", item_x.title)
-                item_x.author = updates.get("author", item_x.author)
-                item_x.category = updates.get("category", item_x.category)
-                item_x.published_date = updates.get("published_date", item_x.published_date)
-                return item_x
-        return f"Book with id {book_id} not found"
+        for book in self._books:
+            if book.id == book_id:
+                book.title = updates.get("title", book.title)
+                book.author = updates.get("author", book.author)
+                book.category = updates.get("category", book.category)
+                book.published_date = updates.get("published_date", book.published_date)
+                return book
+        return None
 
     def delete_book(self, book_id: int) -> bool:
         """Delete a book by ID"""
-        # TODO: Implement delete
-        for item_x in self._books:
-            if item_x.id == book_id:
-                self._books.remove(item_x)
-                return f"Book with id {book_id} deleted successfully"
-        return f"Book with id {book_id} not found!"
-
+        for book in self._books:
+            if book.id == book_id:
+                self._books.remove(book)
+                return True
+        return False
 
     def get_books_by_category(self, category: BookCategory) -> List[Book]:
         """Retrieve all books in a given category"""
-        # TODO: Implement category filter
-        pass
+        return [book for book in self._books if book.category == category]
 
     def get_author_summary(self) -> List[AuthorSummary]:
         """Return count of books per author"""
-        # TODO: Implement author summary
-        pass
+        author_counts: Dict[str, int] = {}
+        for book in self._books:
+            author_counts[book.author] = author_counts.get(book.author, 0) + 1
+        return [AuthorSummary(author=a, book_count=c) for a, c in author_counts.items()]
 
     def get_category_summary(self) -> List[CategorySummary]:
         """Return count of books per category"""
-        # TODO: Implement category summary
-        pass
+        category_counts: Dict[str, int] = {}
+        for book in self._books:
+            category_counts[book.category] = category_counts.get(book.category, 0) + 1
+        return [CategorySummary(category=k, book_count=v) for k, v in category_counts.items()]
 
 
-
-
-
-"""
-API ENDPOINTS
-"""
+# -------------------------------
+# API ENDPOINTS
+# -------------------------------
 
 app = FastAPI(title="Book Library API")
-
 db = Database()  # in-memory database instance
 
-@app.post("/books")
+
+@app.post("/books", response_model=Book, status_code=status.HTTP_201_CREATED)
 def create_book(book: BookCreate):
     """Add a new book"""
-    # TODO: Call db.add_book and return the new book
-    if not book.title or not book.author or not book.category or not book.published_date:
-        raise HTTPException(status_code=status., detail="All fields are required")
+    if not all([book.title, book.author, book.category, book.published_date]):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="All fields are required")
     new_book = db.add_book(book)
     return new_book
 
-@app.get("/books")
-def list_books(category: Optional[BookCategory] = None) -> List[Book]:
-    """List all books or filter by category"""
-    # TODO: Return db.get_all_books or db.get_books_by_category
-    pass
 
-@app.get("/books/{book_id}")
+@app.get("/books", response_model=List[Book])
+def list_books(category: Optional[BookCategory] = None):
+    """List all books or filter by category"""
+    if category:
+        return db.get_books_by_category(category)
+    return db.get_all_books()
+
+
+@app.get("/books/{book_id}", response_model=Book)
 def get_book(book_id: int):
     """Retrieve a book by ID"""
-    # TODO: Return db.get_book_by_id or raise 404
-    pass
+    book = db.get_book_by_id(book_id)
+    if not book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    return book
 
-@app.put("/books/{book_id}")
+
+@app.put("/books/{book_id}", response_model=Book)
 def update_book(book_id: int, updates: BookCreate):
     """Update a book by ID"""
-    # TODO: Call db.update_book and return updated book
-    pass
+    updated_book = db.update_book(book_id, updates.dict())
+    if not updated_book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    return updated_book
+
 
 @app.delete("/books/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_book(book_id: int):
     """Delete a book by ID"""
-    # TODO: Call db.delete_book or raise 404
-    pass
+    deleted = db.delete_book(book_id)
+    if not deleted:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    return None
 
-@app.get("/summary/authors")
+
+@app.get("/summary/authors", response_model=List[AuthorSummary])
 def author_summary():
     """Return summary of books per author"""
-    # TODO: Call db.get_author_summary
-    pass
+    return db.get_author_summary()
 
-@app.get("/summary/categories")
+
+@app.get("/summary/categories", response_model=List[CategorySummary])
 def category_summary():
     """Return summary of books per category"""
-    # TODO: Call db.get_category_summary
-    pass
+    return db.get_category_summary()
